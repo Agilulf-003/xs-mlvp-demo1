@@ -7,3 +7,4 @@ Git tracks changes of files.
 Git tracks changes of files.
 Creat a new branch is quick and simple.
 learning stash
+stash is useful if we don't want to commit before switch branch
