@@ -1,5 +1,5 @@
 //--------------------------
-// simpler two port adder
+// simple two port adder
 //--------------------------
 
 module #(
