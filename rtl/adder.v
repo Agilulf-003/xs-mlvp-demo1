@@ -1,3 +1,7 @@
+//--------------------------
+// simpler two port adder
+//--------------------------
+
 module #(
     parameter WIDTH = 4
 ) adder (
