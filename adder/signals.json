@@ -1,0 +1,20 @@
+{
+    "a_i": {
+        "High": 3,
+        "Low": 0,
+        "Pin": "input",
+        "_": true
+    },
+    "b_i": {
+        "High": 3,
+        "Low": 0,
+        "Pin": "input",
+        "_": true
+    },
+    "sum_o": {
+        "High": 4,
+        "Low": 0,
+        "Pin": "output",
+        "_": true
+    }
+}
