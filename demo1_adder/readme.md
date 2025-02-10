@@ -8,3 +8,5 @@ make
 
 2.run test
 python3 __init__.py
+
+3.open waveform
