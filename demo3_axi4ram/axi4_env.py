@@ -1,4 +1,5 @@
 from axi4_agent import AXI4Bundle, AXI4MasterAgent
+from UT_AXI4RAM import DUTAXI4RAM
 from toffee import *
 
 class AXI4Model(Model):
@@ -23,7 +24,19 @@ class AXI4Model(Model):
         return 0
 
 class AXI4Env(Env):
-    def __init__(self, axi4_bundle: AXI4Bundle):
+    def __init__(self, dut:DUTAXI4RAM):
         super().__init__()
+        axi4_bundle = AXI4Bundle.from_prefix("io_in_").bind(dut)
         self.in_agent = AXI4MasterAgent(axi4_bundle)
         self.attach(AXI4Model())
+        self.dut = dut
+        #self.dut.InitClock("clock")
+
+        # Reset
+        self.reset()
+
+    def reset(self):
+        self.dut.reset.value = 1
+        self.dut.Step(1)
+        self.dut.reset.value = 0
+        self.dut.Step(1)

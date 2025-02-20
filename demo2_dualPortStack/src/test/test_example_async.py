@@ -41,10 +41,16 @@ class SinglePortDriver:
         if is_push:
             self.model.commit_push(self.port_dict["in_data"].value)
 
+#await 是 Python 的 asyncio 库中用于异步编程的关键字。
+#当你在协程函数（使用 async def 定义的函数）内部遇到耗时操作，
+#如 I/O 操作、网络请求等，可以使用 await 来暂停该协程的执行，直到等待的操作完成。
+#这允许其他协程在此期间运行，从而提高程序的整体效率和响应性。
+
     async def receive_resp(self):
         self.port_dict["out_ready"].value = 1
-        await self.dut.AStep(1)
-
+        await self.dut.AStep(1) # driver wait dut 
+#async AStep(cycle: int)      #异步推进cycle个时钟， eg：await dut.AStep(5)
+#async ACondition(condition)  #异步等待conditon()为true
         await self.dut.Acondition(lambda: self.port_dict["out_valid"].value == 1)
         self.port_dict["out_ready"].value = 0
 
@@ -91,6 +97,9 @@ async def test_stack(stack):
     asyncio.create_task(port0.main())
     asyncio.create_task(port1.main())
     await asyncio.create_task(stack.RunStep(200))
+
+#并发执行: port0.main() 和 port1.main() 会并发地运行，因为它们没有被 await 立即等待。
+#顺序等待: stack.RunStep(200) 会被创建为一个任务并立即开始执行，但是当前协程会等待这个任务完成之后再继续执行后续代码。
 
 #if __name__ == "__main__":
 #    dut = DUTdual_port_stack()
